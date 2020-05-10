@@ -38,13 +38,14 @@ export default {
       });
   },
   beforeRouteUpdate (to, from, next) {
+      let newIndex = parseInt(to.params.index);
       //timeout to sync value change with the animation
       setTimeout(() => {
-        this.currentFibIndex = parseInt(to.params.index);
+        this.currentFibIndex = newIndex;
       }, 350);      
-      window.localStorage.setItem('fib-index', this.currentFibIndex);
+      window.localStorage.setItem('fib-index', newIndex);
       //set animation direction
-      this.animation = to.params.index > this.$router.history.current.params.index ? 'forward' : 'backward';
+      this.animation = newIndex > parseInt(this.$router.history.current.params.index) ? 'forward' : 'backward';
       next();
   },
   methods: {
